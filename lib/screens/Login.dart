@@ -19,10 +19,13 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: const Text('Covid Tracker'),
         actions: [
-          FlatButton.icon(
+          TextButton.icon(
               onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>const Register()));
               },
+              style: TextButton.styleFrom(
+                primary: Colors.black,
+              ),
               icon: const Icon(Icons.person),
               label: const Text('Register'))
         ],
@@ -67,12 +70,11 @@ class _LoginState extends State<Login> {
                 obscureText: true,
               ),
               const SizedBox(height: 20.0,),
-              RaisedButton(
-                color: Colors.pink,
+              ElevatedButton(
                 child: const Text('Sign In',style: TextStyle(color: Colors.white),),
                 onPressed: () {
                   if(_formKey.currentState!.validate()){
-                    print('ok !!!');
+                    debugPrint('ok !!!');
                   }
 
                 },

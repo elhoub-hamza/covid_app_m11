@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
                 child: const Text('Sign UP',style: TextStyle(color: Colors.white),),
                 onPressed: () {
                   if(_formKey.currentState!.validate()){
-                    print('ok !!!');
+                    debugPrint('ok !!!');
                   }
 
                 },
