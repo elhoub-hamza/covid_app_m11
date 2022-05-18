@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'Login.dart';
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
 
@@ -16,10 +19,10 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       backgroundColor: Colors.amber[200],
       appBar: AppBar(
-        title: const Text('Covid Tracker Register'),
+        title: Text('Covid Tracker Register'),
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
         child: Form(
           key: _formKey,
           child: ListView(
@@ -63,7 +66,8 @@ class _RegisterState extends State<Register> {
                 child: const Text('Sign UP',style: TextStyle(color: Colors.white),),
                 onPressed: () {
                   if(_formKey.currentState!.validate()){
-                    debugPrint('ok !!!');
+                    print('ok !!!');
+                    signUp();
                   }
 
                 },
@@ -75,5 +79,15 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  Future signUp() async{
+    try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+    }
+    on FirebaseAuthException catch(e){
+      print(e);
+    }
   }
 }
