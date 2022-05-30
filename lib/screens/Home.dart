@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'Login.dart';
 class Home extends StatefulWidget {
@@ -11,6 +12,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final user = FirebaseAuth.instance.currentUser!;
+  static const _initialCameraPosition = CameraPosition(
+    target: LatLng(33.5836, -7.6425),
+    zoom: 11.5,
+  );
+  late GoogleMapController _googleMapController;
+
+  @override
+  void dispose() {
+    _googleMapController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +40,10 @@ class _HomeState extends State<Home> {
                 label: const Text("Sign out"))
 
           ]),
-      body: Center(
-        child: Text(user.email.toString()),
+      body: const GoogleMap(
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: false,
+          initialCameraPosition: _initialCameraPosition,
       ),
     );
   }
